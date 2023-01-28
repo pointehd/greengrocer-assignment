@@ -1,2 +1,11 @@
 server:
   port: 8080
+
+external:
+  api:
+    greengrocer:
+      url: api.postype.net
+      types:
+        - fruit
+        - vegetable
+
