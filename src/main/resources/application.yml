@@ -5,7 +5,9 @@ external:
   api:
     greengrocer:
       url: api.postype.net
-      types:
-        - fruit
-        - vegetable
+
+spring:
+  redis:
+    host: localhost
+    port: 6379
 
