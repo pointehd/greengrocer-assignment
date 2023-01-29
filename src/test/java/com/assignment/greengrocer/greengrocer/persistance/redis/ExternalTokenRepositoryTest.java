@@ -5,16 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class VegetableRepositoryTest {
+class ExternalTokenRepositoryTest {
 
     @Autowired
-    private VegetableRepository vegetableRepository;
+    private ExternalTokenRepository externalTokenRepository;
 
     @Test
     void repositoryTest() {
-        Vegetable vegetable = new Vegetable("test채소", 3000L);
-        vegetableRepository.save(vegetable);
-        vegetableRepository.delete(vegetable);
+        ExternalToken externalToken = new ExternalToken("test", "test");
+        externalTokenRepository.save(externalToken);
+        externalTokenRepository.delete(externalToken);
     }
-
 }
