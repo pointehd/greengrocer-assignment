@@ -18,8 +18,8 @@ public class Response<T> {
         return new Response(responseType, errorMessage);
     }
 
-    public static <T> Response<T> success(ResponseType responseType, T data) {
-        return new Response(responseType, data);
+    public static <T> Response<T> success(T data) {
+        return new Response(ResponseType.SUCCESS, data);
     }
 
 }
