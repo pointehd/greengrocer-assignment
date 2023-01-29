@@ -5,8 +5,12 @@ import com.assignment.greengrocer.greengrocer.external.ExternalService;
 import com.assignment.greengrocer.greengrocer.external.GreengrocerProperties;
 import com.assignment.greengrocer.greengrocer.external.GreengrocerType;
 import com.assignment.greengrocer.greengrocer.model.PriceResponse;
+import com.assignment.greengrocer.greengrocer.persistance.redis.ExternalToken;
+import com.assignment.greengrocer.greengrocer.persistance.redis.ExternalTokenRepository;
+import com.assignment.greengrocer.greengrocer.service.AsyncExternalTokenUpdateService;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +25,8 @@ public class VegetableAdaptorImpl implements ExternalAdaptor {
 
     private final WebClient webClient;
     private final ExternalService externalService;
+    private final ExternalTokenRepository repository;
+    private final AsyncExternalTokenUpdateService externalTokenUpdateService;
 
     private static final String HEADER_COOKIE = "Authorization=";
     private static final String AUTH_HEADER = "Authorization";
@@ -28,12 +34,16 @@ public class VegetableAdaptorImpl implements ExternalAdaptor {
 
     VegetableAdaptorImpl(
         GreengrocerProperties greengrocerProperties,
-        ExternalService externalService) {
+        ExternalService externalService,
+        ExternalTokenRepository externalTokenRepository,
+        AsyncExternalTokenUpdateService externalTokenUpdateService) {
         this.webClient = WebClient
             .builder()
             .baseUrl(greengrocerProperties.getGreengrocerUrl(GreengrocerType.VEGETABLE))
             .build();
         this.externalService = externalService;
+        this.repository = externalTokenRepository;
+        this.externalTokenUpdateService = externalTokenUpdateService;
     }
 
     @PostConstruct
@@ -44,13 +54,23 @@ public class VegetableAdaptorImpl implements ExternalAdaptor {
 
     @Override
     public String getToken() {
+        Optional<ExternalToken> optionalToken = repository.findById(GreengrocerType.VEGETABLE);
+        if (optionalToken.isPresent()) {
+            return optionalToken.get().getValue();
+        }
+        return getNewToken();
+    }
+
+    private String getNewToken() {
         ResponseEntity<String> responseCookie = webClient.get()
             .uri("/token")
             .retrieve()
             .toEntity(String.class)
             .block();
         log.debug("Response token Header: {}", responseCookie);
-        return getHeaderToken(responseCookie);
+        String token = getHeaderToken(responseCookie);
+        externalTokenUpdateService.saveToken(GreengrocerType.VEGETABLE, token);
+        return token;
     }
 
     private <T> String getHeaderToken(ResponseEntity<T> response) {
