@@ -1,6 +1,5 @@
 package com.assignment.greengrocer.greengrocer.external;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.DisplayName;
@@ -19,8 +18,7 @@ class GreengrocerPropertiesTest {
     @DisplayName("properties 값이 받아지는지 테스트")
     @Test
     void configurationPropertiesTest() {
-        assertNotNull(greengrocerProperties.getTypes());
-        assertEquals(greengrocerProperties.getTypes().size(), 2);
-        assertNotNull(greengrocerProperties.getUrl());
+        assertNotNull(greengrocerProperties.getGreengrocerUrl(GreengrocerType.FRUIT));
+        assertNotNull(greengrocerProperties.getGreengrocerUrl(GreengrocerType.VEGETABLE));
     }
 }
