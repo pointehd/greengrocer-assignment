@@ -1,5 +1,6 @@
 package com.assignment.greengrocer.greengrocer.persistance.redis;
 
+import com.assignment.greengrocer.greengrocer.external.GreengrocerType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,8 +13,8 @@ class ExternalTokenRepositoryTest {
 
     @Test
     void repositoryTest() {
-        ExternalToken externalToken = new ExternalToken("test", "test");
+        ExternalToken externalToken = new ExternalToken(GreengrocerType.VEGETABLE, "test");
         externalTokenRepository.save(externalToken);
-        externalTokenRepository.delete(externalToken);
     }
+
 }
