@@ -14,7 +14,9 @@ class ExternalTokenRepositoryTest {
     @Test
     void repositoryTest() {
         ExternalToken externalToken = new ExternalToken(GreengrocerType.VEGETABLE, "test");
+        ExternalToken externalTokenFruit = new ExternalToken(GreengrocerType.FRUIT, "test");
         externalTokenRepository.save(externalToken);
+        externalTokenRepository.save(externalTokenFruit);
     }
 
 }
