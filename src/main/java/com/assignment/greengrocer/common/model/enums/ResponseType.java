@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum ResponseType {
-    SUCCESS
-    ;
+    SUCCESS,
+    EXTERNAL_API_ERROR
+    
 }
