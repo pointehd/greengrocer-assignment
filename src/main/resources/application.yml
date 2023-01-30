@@ -1,13 +1,4 @@
-server:
-  port: 8080
-
-external:
-  api:
-    greengrocer:
-      url: api.postype.net
-
 spring:
-  redis:
-    host: localhost
-    port: 6379
+  profiles:
+    active: local
 
