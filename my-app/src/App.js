@@ -48,15 +48,15 @@ const App = () => {
         <div>카테고리를 선택해주세요</div>
         {
             categories && (
-                    categories.map((category, index) => {
-                      return (
-                          <button style={buttonStyle} key={index} onClick={() => {
-                            setData({category: category, item: null})
-                          }}>
-                            {category}
-                          </button>
-                      )
-                    }))
+                categories.map((category, index) => {
+                  return (
+                      <button style={buttonStyle} key={index} onClick={() => {
+                        setData({category: category, item: null})
+                      }}>
+                        {category}
+                      </button>
+                  )
+                }))
         }
         {
             items && (<div>
@@ -78,7 +78,7 @@ const App = () => {
         }
 
         {
-          data && data.item && (
+            data && data.item && (
                 <div style={{
                   fontSize: "1.5rem",
 
