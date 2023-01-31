@@ -20,6 +20,6 @@ public enum GreengrocerType {
                 return type;
             }
         }
-        throw new IllegalArgumentException("일치하는 은행 코드가 없습니다.");
+        throw new IllegalArgumentException("일치 정보가 없습니다.");
     }
 }

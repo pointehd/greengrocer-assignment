@@ -30,7 +30,7 @@ public class GreengrocerController {
     }
 
     @GetMapping("/{greengrocerType}/{name}")
-    public Response<PriceResponse> getToken(
+    public Response<PriceResponse> getPrice(
         @PathVariable String greengrocerType,
         @PathVariable String name) {
         return Response.success(
