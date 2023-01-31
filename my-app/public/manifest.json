@@ -1,0 +1,11 @@
+{
+  "short_name": "청과물 가격조회",
+  "name": "Create React App Sample",
+  "icons": [
+
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
